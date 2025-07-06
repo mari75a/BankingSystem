@@ -1,14 +1,16 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Create Customer</title>
+    <title>Banking Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<h2>Create Customer</h2>
-<form action="createCustomer" method="post">
-    Name: <input type="text" name="name" /><br/>
-    Initial Balance: <input type="number" step="0.01" name="balance" /><br/>
-    <input type="submit" value="Create"/>
-</form>
+<div class="nav-container">
+    <input type="button" class="nav-button" value="➕ Create Customer" onclick="location.href='createCustomer.jsp'" />
+    <input type="button" class="nav-button" value="💰 Deposit" onclick="location.href='deposit.jsp'" />
+    <input type="button" class="nav-button" value="💸 Withdraw" onclick="location.href='withdraw.jsp'" />
+    <input type="button" class="nav-button" value="🔁 Transfer" onclick="location.href='transfer.jsp'" />
+    <input type="button" class="nav-button" value="👤 Customer Info" onclick="location.href='customerDetails.jsp'" />
+</div>
 </body>
 </html>

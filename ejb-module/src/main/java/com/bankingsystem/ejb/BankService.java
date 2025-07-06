@@ -39,7 +39,24 @@ public class BankService {
             throw new SecurityException("Insufficient funds");
         }
     }
-
+    public void deposit(int customerId, double amount) {
+        Customer customer = em.find(Customer.class, customerId);
+        if (customer != null) {
+            customer.setBalance(customer.getBalance() + amount);
+            em.merge(customer);
+        }
+    }
+    public void withdraw(int customerId, double amount) throws Exception {
+        Customer customer = em.find(Customer.class, customerId);
+        if (customer != null) {
+            if (customer.getBalance() >= amount) {
+                customer.setBalance(customer.getBalance() - amount);
+                em.merge(customer);
+            } else {
+                throw new Exception("Insufficient balance");
+            }
+        }
+    }
     @RolesAllowed({"Admin"})
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void applyInterest(double interestRate) {

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
@@ -7,10 +6,23 @@
 
     <display-name>Banking Web Module</display-name>
 
-    <!-- Security constraints -->
+    <!-- ✅ Allow static files to be accessed freely -->
     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>SecurePages</web-resource-name>
+            <web-resource-name>Public Resources</web-resource-name>
+            <url-pattern>/css/*</url-pattern>
+            <url-pattern>/js/*</url-pattern>
+            <url-pattern>/images/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <!-- Empty auth-constraint = allow all -->
+    </security-constraint>
+
+    <!-- 🔒 Protect everything else -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Protected Pages</web-resource-name>
             <url-pattern>/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
@@ -20,13 +32,7 @@
         </auth-constraint>
     </security-constraint>
 
-    <!-- Login configuration -->
-    <login-config>
-        <auth-method>BASIC</auth-method>
-        <realm-name>file</realm-name> <!-- GlassFish default realm -->
-    </login-config>
-
-    <!-- Declare security roles -->
+    <!-- 🧑‍💼 Roles -->
     <security-role>
         <role-name>Admin</role-name>
     </security-role>
@@ -37,4 +43,12 @@
         <role-name>Manager</role-name>
     </security-role>
 
+    <!-- 🔐 Login Config -->
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/login.jsp</form-login-page>
+            <form-error-page>/login.jsp?error=true</form-error-page>
+        </form-login-config>
+    </login-config>
 </web-app>

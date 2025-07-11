@@ -16,7 +16,8 @@ public class DepositServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
+        Long id = Long.parseLong(req.getParameter("id"));
+
         double amount = Double.parseDouble(req.getParameter("amount"));
 
         bankService.deposit(id, amount);

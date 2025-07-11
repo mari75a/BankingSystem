@@ -39,7 +39,7 @@ public class BankService {
             throw new SecurityException("Insufficient funds");
         }
     }
-    public void deposit(int customerId, double amount) {
+    public void deposit(Long customerId, double amount) {
         Customer customer = em.find(Customer.class, customerId);
         if (customer != null) {
             customer.setBalance(customer.getBalance() + amount);

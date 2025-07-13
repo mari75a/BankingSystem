@@ -46,6 +46,7 @@ public class BankService {
             em.merge(customer);
         }
     }
+
     public void withdraw(Long customerId, double amount) throws Exception {
         Customer customer = em.find(Customer.class, customerId);
         if (customer != null) {

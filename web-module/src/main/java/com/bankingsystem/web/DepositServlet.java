@@ -16,12 +16,22 @@ public class DepositServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long id = Long.parseLong(req.getParameter("id"));
 
-        double amount = Double.parseDouble(req.getParameter("amount"));
+        try {
+            Long id = Long.parseLong(req.getParameter("id"));
 
-        bankService.deposit(id, amount);
+            double amount = Double.parseDouble(req.getParameter("amount"));
 
-        resp.sendRedirect("index.jsp");
+            bankService.deposit(id, amount);
+
+            resp.sendRedirect("success.jsp");
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            // Redirect to error page
+            resp.sendRedirect("error.jsp");
+        }
+
+
     }
 }

@@ -7,7 +7,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet("/createCustomer")
 public class CustomerServlet extends HttpServlet {
@@ -18,13 +17,20 @@ public class CustomerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String name = req.getParameter("name");
-        double balance = Double.parseDouble(req.getParameter("balance"));
+        try {
+            String name = req.getParameter("name");
+            double balance = Double.parseDouble(req.getParameter("balance"));
 
-        bankService.createCustomer(name, balance);
+            bankService.createCustomer(name, balance);
 
-        resp.setContentType("text/html");
-        PrintWriter out = resp.getWriter();
-        out.println("<h2>Customer Created Successfully</h2>");
+            // Redirect to success page
+            resp.sendRedirect("success.jsp");
+        } catch (Exception e) {
+            // Optional: log error
+            e.printStackTrace();
+
+            // Redirect to error page
+            resp.sendRedirect("error.jsp");
+        }
     }
 }

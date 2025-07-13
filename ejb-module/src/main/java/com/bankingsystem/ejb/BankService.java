@@ -46,7 +46,7 @@ public class BankService {
             em.merge(customer);
         }
     }
-    public void withdraw(int customerId, double amount) throws Exception {
+    public void withdraw(Long customerId, double amount) throws Exception {
         Customer customer = em.find(Customer.class, customerId);
         if (customer != null) {
             if (customer.getBalance() >= amount) {
@@ -57,6 +57,7 @@ public class BankService {
             }
         }
     }
+
     @RolesAllowed({"Admin"})
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void applyInterest(double interestRate) {

@@ -39,6 +39,7 @@ public class BankService {
             throw new SecurityException("Insufficient funds");
         }
     }
+    @RolesAllowed({"Admin", "Clerk"})
     public void deposit(Long customerId, double amount) {
         Customer customer = em.find(Customer.class, customerId);
         if (customer != null) {
@@ -46,7 +47,7 @@ public class BankService {
             em.merge(customer);
         }
     }
-
+    @RolesAllowed({"Admin", "Clerk"})
     public void withdraw(Long customerId, double amount) throws Exception {
         Customer customer = em.find(Customer.class, customerId);
         if (customer != null) {

@@ -12,7 +12,7 @@ public class InterestTimerBean {
     @EJB
     private BankService bankService;
 
-    // Runs every day at 2 AM
+
     @Schedule(hour = "2", minute = "0", second = "0", persistent = false)
     public void runDailyInterestTask() {
         double interestRate = 0.01; // 1%
